@@ -18,7 +18,7 @@
 <!-- BOOTSTRAP -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
 
-<!-- SCRIPT-JS -->
+<!-- VUE-JS -->
     <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
 
 </head>
@@ -36,20 +36,18 @@
                 <h1><span>BOOLEAN</span> TODO LIST</h1>
       
                 <div class="new-todo">
-                    <p class="error">Errore! Riempire il campo Todo.</p>
-                    <input type="text" placeholder="Aggiugni un nuovo todo">
-                    <button class="add-btn">Aggiungi</button>
+                    <p class="error" v-show="error">Errore! Aggiungi un nuovo Todo</p>
+                    <input type="text" placeholder="Aggiugni un nuovo todo" v-model.trim="newTodo.text" @keyup.enter="addTodo">
+                    <button class="add-btn" @click="addTodo">Aggiungi</button>
                 </div>
       
                 <ul class="todo-list">
-                    <li>
-                        <p>ciao</p>
-                        <span class="delete">&cross;</span>
+                    <li v-for="todo in todos">
+                        <p v-if="todo.done" class="done">{{ todo.text }}</p>
+                        <p v-else>{{ todo.text }}</p>
+                        <span class="delete" @click="removeTodo(index)">&cross;</span>
                     </li>
                 </ul>
-                <div class="empty-list">
-                    <h3>Complimenti! Hai completato la tua lista.</h3>
-                </div>
             </div>
         </main>
 <!-- MAIN -->
